@@ -25,9 +25,7 @@ public class EstadoApresentacao extends Estado{
     public void processaMensagem(String mensagem) {
         
         try{
-            
-            mensagemResposta = "TESTEEEE " + comanda.isComandaAberta() + System.lineSeparator();
-            
+        /*            
             if(comanda.isComandaAberta() == true){
             mensagemResposta = "Desculpe!\n" + 
                                "O fechamento da sua conta ainda está pendente!" +
@@ -37,7 +35,7 @@ public class EstadoApresentacao extends Estado{
              
             comanda.setComandaAberta(true);
             comanda = comandaRepository.save(comanda);
-                                 
+        */                     
             if(cliente.getConsumoMedio() > 0.00 && cliente.getConsumoMedio() < 500.00){
             cliente.setCategoria("Prata");
             cliente = clienteRepository.save(cliente);

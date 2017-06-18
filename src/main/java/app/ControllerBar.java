@@ -190,7 +190,7 @@ public class ControllerBar {
         
     }
     //MAIS PEDIDOS
-    @RequestMapping(method=RequestMethod.GET, value="/maispedidos")
+    @RequestMapping(method=RequestMethod.GET, value="/pedidos")
     public List<ItemPedido> listarComandas(ItemPedido itemPedido){
         
         itemPedidoRepository = context.getBean(ItemPedidoRepository.class);

@@ -44,7 +44,8 @@ app.controller("botctrl", function($scope, $http){
             });
         console.log("foi!");
     }
-    
+     
+    //CRUD ITENS
     $scope.itens = [];
     $scope.categorias = [
         {nome: "Espetinho", tipo: "Alimentos"},
@@ -53,7 +54,7 @@ app.controller("botctrl", function($scope, $http){
         {nome: "Drink", tipo: "Bebidas"},
         {nome: "Não Alcoólico", tipo: "Bebidas"}
     ];
-    //CRUD
+    
     $scope.adcionarItem = function (item) {
         delete $scope.item;
         $scope.enviando=true;
@@ -208,15 +209,14 @@ app.controller("botctrl", function($scope, $http){
         
     }
     
-    
+    //RELATÓRIOS
     $scope.clientes = [];    
     $scope.relatorios = [
         {modelo: "Consumo Médio de Clientes"},
         {modelo: "Avaliação dos Clientes"},
-        {modelo: "Itens mais pedidos"}
+        {modelo: "Itens pedidos"}
     ];
-    
-    //RELATÓRIOS    
+      
     $scope.gerarRelatorios = function(cliente){
         $scope.buscando = true;
         console.log("latório");
@@ -273,17 +273,25 @@ app.controller("botctrl", function($scope, $http){
                     console.log(erro);
                 });
         }
-        if(cliente.relatorio.modelo === "Itens mais pedidos"){
+        if(cliente.relatorio.modelo === "Itens pedidos"){
             console.log("FOI!!!, MAIS PEDIDOS")
             $scope.nome = "Item";
             $scope.propriedade = "Quantidade";
             
-            $http.get("https://projeto-lab-chopp.herokuapp.com/maispedidos")
-                .then(function(cliente){
+            $http.get("https://projeto-lab-chopp.herokuapp.com/pedidos")
+                .then(function(item){
                     console.log('Vaaaai!');
                     $scope.buscando=false;
-                    $scope.clientes = cliente.data;  
-                    console.log(cliente);
+                    $scope.clientes = item.data;  
+                    console.log(item);
+                    
+                    for(i = 0; i < item.data.length; i++){
+                       $scope.tabelas1.push(item.data[i].nome);
+                       $scope.tabelas2.push(item.data[i].quantidade);
+                    }
+                    console.log(item.data);
+                    console.log($scope.tabelas1);
+                    console.log($scope.tabelas2);
                     
                 },function(erro){
                     $scope.buscando=false;
