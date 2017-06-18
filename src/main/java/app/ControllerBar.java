@@ -17,8 +17,11 @@ import app.bot.cardapio.ItemNaoAlcool;
 import app.bot.cardapio.ItemNaoAlcoolRepository;
 import app.bot.cliente.Cliente;
 import app.bot.cliente.ClienteRepository;
+import app.bot.comanda.ComandaRepository;
 import app.bot.comanda.ItemComanda;
 import app.bot.comanda.ItemComandaRepository;
+import app.bot.comanda.ItemPedido;
+import app.bot.comanda.ItemPedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,10 +43,9 @@ public class ControllerBar {
     private ItemCervejaRepository itemCervejaRepository;
     private ItemDrinkRepository itemDrinkRepository;
     private ItemNaoAlcoolRepository itemNaoAlcoolRepository;
-    private ClienteRepository clienteRepository;
     private ItemComandaRepository itemComandaRepository;
-            
-    //private ComandaRepository comandaRepository;
+    private ClienteRepository clienteRepository;
+    private ItemPedidoRepository itemPedidoRepository;
     
     //Preencher Banco
     @RequestMapping(method=RequestMethod.POST, value="/salvaEspetinho")
@@ -189,22 +191,12 @@ public class ControllerBar {
     }
     //MAIS PEDIDOS
     @RequestMapping(method=RequestMethod.GET, value="/maispedidos")
-    public List<ItemComanda> listarMaisPedidos(){
+    public List<ItemPedido> listarComandas(ItemPedido itemPedido){
         
-        itemComandaRepository = context.getBean(ItemComandaRepository.class);
+        itemPedidoRepository = context.getBean(ItemPedidoRepository.class);
         
-        return (List<ItemComanda>) itemComandaRepository.findAll();
+        return (List<ItemPedido>) itemPedidoRepository.findAll();
         
     }
-    
-    //COMANDA
-    /*@RequestMapping(method=RequestMethod.GET, value="/comandas")
-    public List<Comanda> listarComandas(Comanda comanda){
-        
-        comandaRepository = context.getBean(ComandaRepository.class);
-        
-        return (List<Comanda>) comandaRepository.findOne(comanda.id);
-        
-    }*/
     
 }

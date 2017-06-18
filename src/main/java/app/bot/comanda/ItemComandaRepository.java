@@ -6,7 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 public interface ItemComandaRepository extends CrudRepository<ItemComanda, Integer>{
 
     public Iterable<ItemComanda> findByCliente(Cliente cliente);
-
-    public void deleteByCliente(String first_name);
     
 }

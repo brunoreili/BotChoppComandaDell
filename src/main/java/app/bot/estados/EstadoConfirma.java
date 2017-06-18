@@ -5,12 +5,15 @@ import app.bot.comanda.Comanda;
 import app.bot.comanda.ComandaRepository;
 import app.bot.comanda.ItemComanda;
 import app.bot.comanda.ItemComandaRepository;
+import app.bot.comanda.ItemPedido;
+import app.bot.comanda.ItemPedidoRepository;
 import org.springframework.context.ApplicationContext;
 
 public class EstadoConfirma extends Estado{
     
     private final ComandaRepository comandaRepository; 
     private final ItemComandaRepository itemComandaRepository;
+    private final ItemPedidoRepository itemPedidoRepository;
     private final Cliente cliente;
     private final Comanda comanda;
     private final String produto;
@@ -27,6 +30,7 @@ public class EstadoConfirma extends Estado{
         this.valor = valor;
         this.comandaRepository = context.getBean(ComandaRepository.class);
         this.itemComandaRepository = context.getBean(ItemComandaRepository.class);
+        this.itemPedidoRepository = context.getBean(ItemPedidoRepository.class);
     }
 
     @Override
@@ -74,6 +78,13 @@ public class EstadoConfirma extends Estado{
                 item.setQuantidade(quantidade);
                 item.setValor(valor);
                 itemComandaRepository.save(item);
+                
+                ItemPedido pedido = new ItemPedido();
+                pedido.setCliente(cliente);
+                pedido.setNome(produto);
+                pedido.setQuantidade(quantidade);
+                pedido.setValor(valor);
+                itemPedidoRepository.save(pedido);
                 
                 comanda.setTotal(comanda.getTotal() + valor);
                 comandaRepository.save(comanda);
